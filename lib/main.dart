@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,9 +49,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static const channel = MethodChannel('camera');
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter() async {
+    await channel.invokeMethod(
+      "launchCamera",
+      {"enabled": true},
+    );
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
